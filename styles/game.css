@@ -48,6 +48,21 @@
   font-weight: bold;
 }
 
+#game-board li.gameover {
+  pointer-events: none;
+  background-color: rgb(215, 182, 247);
+  border-radius: 2px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+
+}
+
+
+
 #game-board li:hover {
   background-color: rgb(112, 13, 204);
 }

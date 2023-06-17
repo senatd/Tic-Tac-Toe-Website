@@ -1,8 +1,9 @@
 function resetGameStatus() {
   activePlayer = 0;
   currentRound = 1;
+  gameIsOver = false;
   gameOverElement.firstElementChild.innerHTML =
-    "You won <span id=\"winner-name\" >PLAYER NAME</span>!";
+    'You won <span id="winner-name" >PLAYER NAME</span>!';
   gameOverElement.style.display = "none";
 
   let gameBoardIndex = 0;
@@ -18,14 +19,19 @@ function resetGameStatus() {
 }
 
 function startNewGame() {
-  if (players[0].name === "" || players[1].name === "") {
-    alert("Please set custom player names for both players.");
-    return;
-  }
+  //if (players[0].name === "" || players[1].name === "") {
+  //alert("Please set custom player names for both players.");
+  //return;
+  //}
 
   resetGameStatus();
 
-  activePlayerNameElement.textContent = players[activePlayer].name;
+  if (players[activePlayer].name){
+    activePlayerNameElement.textContent = players[activePlayer].name;
+  }else {
+    activePlayerNameElement.textContent =
+    'Player ' + (activePlayer + 1);
+  }
   gameAreaElement.style.display = "block";
 }
 
@@ -35,11 +41,17 @@ function switchPlayer() {
   } else {
     activePlayer = 0;
   }
-  activePlayerNameElement.textContent = players[activePlayer].name;
+
+  if (players[activePlayer].name){
+    activePlayerNameElement.textContent = players[activePlayer].name;
+  }else {
+    activePlayerNameElement.textContent =
+    'Player ' + (activePlayer + 1);
+  }
 }
 
 function selectGameField(event) {
-  if (event.target.tagName !== "LI") {
+  if (event.target.tagName !== "LI" || gameIsOver) {
     return;
   }
 
@@ -89,7 +101,7 @@ function checkForGameOver() {
 
   if (
     gameData[2][0] === gameData[1][1] &&
-    gameData[2][1] === gameData[0][2] &&
+    gameData[1][1] === gameData[0][2] &&
     gameData[0][0] > 0
   ) {
     return gameData[2][0];
